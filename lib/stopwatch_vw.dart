@@ -24,7 +24,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   int hours = 0;
   int minutes = 0;
   int seconds = 0;
-  late Timer timer;
+  Timer? _timer;
   final playIcon = Icons.play_arrow;
   final pauseIcon = Icons.pause;
   late FocusNode _node;
@@ -32,6 +32,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   @override
   void initState() {
     _node = FocusNode();
+    super.initState();
   }
 
   String pad(int num) {
@@ -39,7 +40,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void start() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         seconds++;
 
@@ -64,7 +65,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void pause() {
-    timer.cancel();
+    _timer?.cancel();
 
     setState(() {
       paused = true;
@@ -72,7 +73,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void stop() {
-    timer.cancel();
+    _timer?.cancel();
 
     setState(() {
       stopped = true;
@@ -100,7 +101,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
         if (e.runtimeType == KeyDownEvent) {
           switch (e.character?.toLowerCase()) {
             case ' ':
-              paused ? start() : pause();
+              paused || !isWorking ? start() : pause();
               break;
             case 's':
               stop();
