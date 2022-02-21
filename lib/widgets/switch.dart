@@ -9,12 +9,15 @@ class DarkModeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final onPrimaryColor = Theme.of(context).colorScheme.onPrimary;
+
     return ValueListenableBuilder(
         valueListenable: MyApp.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
           return Column(
             children: [
-              const Text('Cyber', style: TextStyle(fontSize: 10)),
+              Text('Cyber', style: TextStyle(fontSize: 10, color: primaryColor, fontWeight: FontWeight.bold)),
               const SizedBox(
                 height: 2,
               ),
@@ -25,7 +28,9 @@ class DarkModeSwitch extends StatelessWidget {
                 toggleSize: 17.0,
                 value: currentMode == ThemeMode.dark,
                 borderRadius: 20.0,
-                activeColor: const Color.fromARGB(183, 202, 44, 202),
+                activeColor: primaryColor,
+                activeTextColor: onPrimaryColor,
+                toggleColor: onPrimaryColor,
                 padding: 3.0,
                 showOnOff: true,
                 onToggle: onToggle,
