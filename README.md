@@ -1,4 +1,5 @@
-# clocker
+[![Clocker CI/CD](https://github.com/bryancalisto/Clocker/actions/workflows/ci_cd.yml/badge.svg)](https://github.com/bryancalisto/Clocker/actions/workflows/ci_cd.yml)
+# Clocker
 
 A simple and concise Flutter Windows chronometer.
 
