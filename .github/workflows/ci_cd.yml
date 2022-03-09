@@ -29,23 +29,22 @@ jobs:
       - name: Build for Windows 
         run: flutter build windows
 
-      - name: Version
-        run: Get-Date -Format "MMddyyyy" 
-        #shell: powershell
+      - name: Generate version
+        run: echo "::set-output name=version::$(Get-Date -Format 'yyyyMMdd')" 
         id: version
 
       - uses: actions/upload-artifact@v3
         with:
-          name: clocker_${{steps.Version.outputs.version}}
+          name: clocker_${{steps.version.outputs.version}}
           path: ./build/windows/runner/Release
 
-      # - name: release
-      #   uses: actions/create-release@v1
-      #   id: create_release
-      #   with:
-      #     release_name: Clocker v${{ steps.Version.outputs.version }}
-      #     tag_name: ${{ github.ref }}
-      #     draft: false
-      #     prerelease: false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          release_name: clocker_${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
