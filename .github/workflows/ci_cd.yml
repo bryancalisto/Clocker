@@ -29,14 +29,13 @@ jobs:
       - name: Build for Windows 
         run: flutter build windows
 
-      - name: Generate version
-        run: echo "::set-output name=version::$(Get-Date -Format 'yyyyMMdd')" 
-        id: version
+      - name: Generate filename 
+        run: echo "::set-output name=filename::clocker_$(Get-Date -Format 'yyyyMMdd')".zip
+        id: filename
 
       - uses: actions/upload-artifact@v3
-        run: echo "::set-output name=artifact_name::clocker_$(Get-Date -Format 'yyyyMMdd')" 
         with:
-          name: clocker_${{steps.version.outputs.version}}.zip
+          name: ${{steps.finename.outputs.filename}}
           path: ./build/windows/runner/Release
         id: upload_artifact
 
@@ -44,8 +43,8 @@ jobs:
         uses: actions/create-release@v1
         id: create_release
         with:
-          release_name: clocker_${{ steps.version.outputs.version }}.zip
-          tag_name: ${{ github.ref }}
+          release_name: ${{ steps.filename.outputs.filename }}
+          tag_name: ${{ steps.filename.outputs.filename }}
           draft: false
           prerelease: false
         env:
@@ -53,10 +52,10 @@ jobs:
 
       - name: Upload Windows artifact
         uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ steps.upload_artifact.outputs.artifact_name }}
-          asset_name: ${{ steps.upload_artifact.outputs.artifact_name }}
+          asset_path: ./${{ steps.filename.outputs.filename }}
+          asset_name: ${{ steps.filename.outputs.filename }}
           asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
