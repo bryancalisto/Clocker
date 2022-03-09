@@ -30,7 +30,7 @@ jobs:
         run: flutter build windows
 
       - name: Generate filename 
-        run: echo "::set-output name=filename::clocker_$(Get-Date -Format 'yyyyMMdd')".zip
+        run: echo "::set-output name=filename::clocker_$(Get-Date -Format 'yyyyMMdd').zip"
         id: filename
 
       - uses: actions/upload-artifact@v3
