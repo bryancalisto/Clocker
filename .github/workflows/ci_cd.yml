@@ -29,33 +29,33 @@ jobs:
       - name: Build for Windows 
         run: flutter build windows
 
-      - name: Generate filename 
-        run: echo "::set-output name=filename::clocker_$(Get-Date -Format 'yyyyMMdd').zip"
-        id: filename
+      # - name: Generate filename 
+      #   run: echo "::set-output name=filename::clocker_$(Get-Date -Format 'yyyyMMdd').zip"
+      #   id: filename
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ${{steps.filename.outputs.filename}}
-          path: ./build/windows/runner/Release
-        id: upload_artifact
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: ${{steps.filename.outputs.filename}}
+      #     path: ./build/windows/runner/Release
+      #   id: upload_artifact
 
-      - name: Generate release
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          release_name: ${{ steps.filename.outputs.filename }}
-          tag_name: ${{ github.ref }}
-          draft: true
-          prerelease: false
+      # - name: Generate release
+      #   uses: actions/create-release@v1
+      #   id: create_release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     release_name: ${{ steps.filename.outputs.filename }}
+      #     tag_name: ${{ github.ref }}
+      #     draft: true
+      #     prerelease: false
 
-      - name: Upload Windows artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ steps.filename.outputs.filename }}
-          asset_name: ${{ steps.filename.outputs.filename }}
-          asset_content_type: application/zip
+      # - name: Upload Windows artifact
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./${{ steps.filename.outputs.filename }}
+      #     asset_name: ${{ steps.filename.outputs.filename }}
+      #     asset_content_type: application/zip
