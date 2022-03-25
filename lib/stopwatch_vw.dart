@@ -37,7 +37,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
 
   @override
   void dispose() {
-    _timer?.cancel();
+    cancelTimer();
     super.dispose();
   }
 
@@ -45,7 +45,13 @@ class _StopwatchVwState extends State<StopwatchVw> {
     return num.toString().padLeft(2, '0');
   }
 
+  void cancelTimer() {
+    _timer?.cancel();
+  }
+
   void start() {
+    cancelTimer();
+
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         seconds++;
@@ -71,7 +77,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void pause() {
-    _timer?.cancel();
+    cancelTimer();
 
     setState(() {
       paused = true;
@@ -79,7 +85,7 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void stop() {
-    _timer?.cancel();
+    cancelTimer();
 
     setState(() {
       stopped = true;
@@ -88,6 +94,8 @@ class _StopwatchVwState extends State<StopwatchVw> {
   }
 
   void restart() {
+    stop();
+
     setState(() {
       hours = 0;
       minutes = 0;
