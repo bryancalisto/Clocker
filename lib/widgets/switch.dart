@@ -30,6 +30,8 @@ class DarkModeSwitch extends StatelessWidget {
                 borderRadius: 20.0,
                 activeColor: primaryColor,
                 activeTextColor: onPrimaryColor,
+                inactiveColor: primaryColor,
+                inactiveTextColor: onPrimaryColor,
                 toggleColor: onPrimaryColor,
                 padding: 3.0,
                 showOnOff: true,
