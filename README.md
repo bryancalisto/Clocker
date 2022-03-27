@@ -7,3 +7,4 @@ A simple and concise Flutter Windows chronometer.
 - **Space bar:** Start, pause, continue.
 - **s:** Stop.
 - **r:** Restart.
+- **t:** Toggle theme.
