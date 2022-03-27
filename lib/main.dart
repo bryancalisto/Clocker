@@ -1,14 +1,18 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:clocker/state.dart';
 import 'package:clocker/stopwatch_vw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
+import 'package:get_it/get_it.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
   await Window.hideWindowControls();
+  GetIt.I;
+  setup();
 
-  runApp(const MyApp());
+  runApp(MyApp(getIt: GetIt.I));
 
   doWhenWindowReady(() {
     const initialSize = Size(350, 200);
@@ -27,35 +31,38 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
-  const MyApp({Key? key}) : super(key: key);
+  final GetIt getIt;
+  const MyApp({Key? key, required this.getIt}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
-      valueListenable: themeNotifier,
+      valueListenable: getIt<AppState>().themeNotifier,
       builder: (_, ThemeMode currentMode, __) {
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            color: Colors.transparent,
-            theme: ThemeData.light().copyWith(
-              colorScheme: const ColorScheme.light().copyWith(
-                primary: Colors.black,
-                onPrimary: Colors.white,
-              ),
-              splashFactory: InkRipple.splashFactory,
+          debugShowCheckedModeBanner: false,
+          color: Colors.transparent,
+          theme: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light().copyWith(
+              primary: Colors.black,
+              onPrimary: Colors.white,
             ),
-            darkTheme: ThemeData.dark().copyWith(
-              colorScheme: const ColorScheme.light().copyWith(
-                primary: const Color(0xff711c91),
-                onPrimary: const Color(0xffea00d9),
-                secondary: const Color(0xff133e7c),
-                onSecondary: const Color(0xff0abdc6),
-              ),
-              splashFactory: InkRipple.splashFactory,
+            splashFactory: InkRipple.splashFactory,
+          ),
+          darkTheme: ThemeData.dark().copyWith(
+            colorScheme: const ColorScheme.light().copyWith(
+              primary: const Color(0xff711c91),
+              onPrimary: const Color(0xffea00d9),
+              secondary: const Color(0xff133e7c),
+              onSecondary: const Color(0xff0abdc6),
             ),
-            themeMode: currentMode,
-            home: MoveWindow(child: const StopwatchVw()));
+            splashFactory: InkRipple.splashFactory,
+          ),
+          themeMode: currentMode,
+          home: MoveWindow(
+            child: const StopwatchVw(),
+          ),
+        );
       },
     );
   }

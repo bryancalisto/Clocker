@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:clocker/main.dart';
+import 'package:clocker/state.dart';
 import 'package:clocker/styles.dart';
+import 'package:clocker/utils/theme_utils.dart';
 import 'package:clocker/widgets/button.dart';
 import 'package:clocker/widgets/switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
 class StopwatchVw extends StatefulWidget {
   const StopwatchVw({Key? key}) : super(key: key);
@@ -15,9 +17,6 @@ class StopwatchVw extends StatefulWidget {
 }
 
 class _StopwatchVwState extends State<StopwatchVw> {
-  // UI
-  bool darkModeOn = false;
-
   bool isWorking = false;
   bool paused = false;
   bool stopped = false;
@@ -114,14 +113,17 @@ class _StopwatchVwState extends State<StopwatchVw> {
       onKeyEvent: (e) {
         if (e.runtimeType == KeyDownEvent) {
           switch (e.character?.toLowerCase()) {
-            case ' ':
+            case ' ': // Pause / Continue
               paused || !isWorking ? start() : pause();
               break;
-            case 's':
+            case 's': // Stop
               stop();
               break;
-            case 'r':
+            case 'r': // Restart
               restart();
+              break;
+            case 't': // App theme toggle
+              setTheme(GetIt.I<AppState>().themeNotifier.value != ThemeMode.dark);
               break;
           }
         }
@@ -130,16 +132,10 @@ class _StopwatchVwState extends State<StopwatchVw> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Positioned(
+            const Positioned(
               bottom: 10,
               right: 10,
-              child: DarkModeSwitch(onToggle: (val) {
-                if (val) {
-                  MyApp.themeNotifier.value = ThemeMode.dark;
-                } else {
-                  MyApp.themeNotifier.value = ThemeMode.light;
-                }
-              }),
+              child: DarkModeSwitch(onToggle: setTheme, key: Key('themeSwitch')),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
