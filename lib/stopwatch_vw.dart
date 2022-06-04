@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:clocker/state.dart';
 import 'package:clocker/styles.dart';
@@ -105,6 +106,11 @@ class _StopwatchVwState extends State<StopwatchVw> {
     });
   }
 
+  void quit() {
+    cancelTimer();
+    exit(0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return KeyboardListener(
@@ -124,6 +130,9 @@ class _StopwatchVwState extends State<StopwatchVw> {
               break;
             case 't': // App theme toggle
               setTheme(GetIt.I<AppState>().themeNotifier.value != ThemeMode.dark);
+              break;
+            case 'q': // Quits the program
+              quit();
               break;
           }
         }
