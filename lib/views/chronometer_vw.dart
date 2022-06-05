@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:clocker/controllers/chronometer.dart';
-import 'package:clocker/factories/keyboardListener.dart';
+import 'package:clocker/factories/keyboard_listener.dart';
 import 'package:clocker/state.dart';
 import 'package:clocker/styles.dart';
 import 'package:clocker/utils/theme.dart';
