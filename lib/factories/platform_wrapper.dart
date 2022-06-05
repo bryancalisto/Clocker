@@ -1,0 +1,16 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:clocker/utils/utils.dart';
+import 'package:flutter/material.dart';
+
+Widget createPlatformWrapper(Widget child) {
+  final os = getOS();
+
+  switch (os) {
+    case 'linux':
+    case 'macos':
+    case 'windows':
+      return MoveWindow(child: child);
+    default:
+      return Container(child: child);
+  }
+}
