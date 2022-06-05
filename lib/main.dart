@@ -1,6 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:clocker/state.dart';
-import 'package:clocker/stopwatch_vw.dart';
+import 'package:clocker/views/chronometer_vw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:get_it/get_it.dart';
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           ),
           themeMode: currentMode,
           home: MoveWindow(
-            child: const StopwatchVw(),
+            child: const ChronometerVw(),
           ),
         );
       },

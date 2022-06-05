@@ -1,9 +1,7 @@
 import 'package:clocker/state.dart';
-import 'package:clocker/stopwatch_vw.dart';
-import 'package:clocker/widgets/switch.dart';
+import 'package:clocker/views/chronometer_vw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 
@@ -54,7 +52,7 @@ void main() {
 
   group('Clock core functionality', () {
     testWidgets('Clock should start when space bar is pressed', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(const StopwatchVw(), getIt));
+      await tester.pumpWidget(buildApp(const ChronometerVw(), getIt));
       // Hours, minutes and seconds should start in 0
       expect(find.text('00:'), findsNWidgets(2));
       expect(find.text('00'), findsOneWidget);
@@ -66,7 +64,7 @@ void main() {
     });
 
     testWidgets('Clock should pause when space bar is pressed when the clock is running', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(const StopwatchVw(), getIt));
+      await tester.pumpWidget(buildApp(const ChronometerVw(), getIt));
       // Hours, minutes and seconds should start in 0
       expect(find.text('00:'), findsNWidgets(2));
       expect(find.text('00'), findsOneWidget);
@@ -87,7 +85,7 @@ void main() {
   group('Theme switching', () {
     testWidgets('Toggles theme when switch key is toggled', (WidgetTester tester) async {
       // await tester.pumpWidget(buildApp(const StopwatchVw(), getIt));
-      await tester.pumpWidget(buildApp(const StopwatchVw(), getIt));
+      await tester.pumpWidget(buildApp(const ChronometerVw(), getIt));
       var theSwitch = find.byKey(const Key('themeSwitch'));
 
       expect(state.themeNotifier.value, ThemeMode.dark);
@@ -102,7 +100,7 @@ void main() {
     });
 
     testWidgets('Toggles theme when corresponding key is pressed', (WidgetTester tester) async {
-      await tester.pumpWidget(buildApp(const StopwatchVw(), getIt));
+      await tester.pumpWidget(buildApp(const ChronometerVw(), getIt));
 
       expect(state.themeNotifier.value, ThemeMode.dark);
 
