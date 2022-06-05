@@ -20,8 +20,6 @@ class ChronometerVw extends StatefulWidget {
 
 class ChronometerVwState extends State<ChronometerVw> {
   final _chrono = Chronometer();
-  final _playIcon = Icons.play_arrow;
-  final _pauseIcon = Icons.pause;
   late FocusNode _node;
 
   @override
@@ -103,7 +101,7 @@ class ChronometerVwState extends State<ChronometerVw> {
                           _run();
                         }
                       },
-                      icon: _chrono.state == ChronometerState.running ? _pauseIcon : _playIcon,
+                      icon: _chrono.state == ChronometerState.running ? kPauseIcon : kPlayIcon,
                     ),
                     if (_chrono.state != ChronometerState.off) ...[
                       const SizedBox(
@@ -111,7 +109,7 @@ class ChronometerVwState extends State<ChronometerVw> {
                       ),
                       Button(
                         onPressed: _restart,
-                        icon: Icons.restart_alt,
+                        icon: kRestartIcon,
                       ),
                     ] else
                       Container(),
