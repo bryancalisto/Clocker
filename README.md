@@ -15,6 +15,6 @@ A simple and concise Flutter Windows chronometer.
 
 #### Key shortcuts
 - **Space bar:** Start, pause, continue.
-- **s:** Stop.
+- **q:** Quit.
 - **r:** Restart.
 - **t:** Toggle theme.
