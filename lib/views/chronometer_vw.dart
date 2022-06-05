@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:clocker/controllers/Chronometer.dart';
+import 'package:clocker/controllers/chronometer.dart';
 import 'package:clocker/factories/keyboardListener.dart';
 import 'package:clocker/state.dart';
 import 'package:clocker/styles.dart';
@@ -105,13 +105,16 @@ class ChronometerVwState extends State<ChronometerVw> {
                       },
                       icon: _chrono.state == ChronometerState.running ? _pauseIcon : _playIcon,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Button(
-                      onPressed: _restart,
-                      icon: Icons.restart_alt,
-                    ),
+                    if (_chrono.state != ChronometerState.off) ...[
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Button(
+                        onPressed: _restart,
+                        icon: Icons.restart_alt,
+                      ),
+                    ] else
+                      Container(),
                   ],
                 )
               ],
