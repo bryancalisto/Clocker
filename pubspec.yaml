@@ -1,5 +1,5 @@
 name: clocker
-description: A new Flutter project.
+description: Chronometer with shortcut keys and cyberpunk theme! 
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -41,7 +41,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_switch: ^0.3.2
   flutter_acrylic: ^1.0.0+1
-  bitsdojo_window: ^0.1.1+1
+  bitsdojo_window: ^0.1.2
   get_it: ^7.2.0
 
 dev_dependencies:
