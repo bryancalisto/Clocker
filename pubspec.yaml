@@ -1,5 +1,5 @@
 name: clocker
-description: Chronometer with shortcut keys and cyberpunk theme! 
+description: Chronometer with shortcut keys and cyberpunk theme!
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -40,7 +40,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_switch: ^0.3.2
-  flutter_acrylic: ^1.0.0+1
+  flutter_acrylic: ^1.0.0+2
   bitsdojo_window: ^0.1.2
   get_it: ^7.2.0
 

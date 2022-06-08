@@ -8,7 +8,20 @@ Future<void> runCustomPlatformApp(void Function() runApp) async {
 
   switch (os) {
     case 'linux':
-    case 'macos':
+      // TODO: Make the visual effects (flutter_acrylic) work. Or maybe think about removing the background.
+      // It looks very good with transparent backgroud! Maybe centering the toggle would make it look perfect!
+      runApp();
+
+      doWhenWindowReady(() {
+        const initialSize = Size(350, 200);
+        appWindow
+          ..size = initialSize
+          ..minSize = initialSize
+          ..maxSize = initialSize
+          ..alignment = Alignment.bottomRight
+          ..show();
+      });
+      break;
     case 'windows':
       await Window.initialize();
       await Window.hideWindowControls();
