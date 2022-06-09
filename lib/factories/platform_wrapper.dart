@@ -7,7 +7,6 @@ Widget createPlatformWrapper(Widget child) {
 
   switch (os) {
     case 'linux':
-    case 'macos':
     case 'windows':
       return MoveWindow(child: child);
     default:

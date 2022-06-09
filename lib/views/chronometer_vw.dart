@@ -69,54 +69,47 @@ class ChronometerVwState extends State<ChronometerVw> {
       _node,
       Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Positioned(
-              bottom: 10,
-              right: 10,
-              child: DarkModeSwitch(onToggle: setTheme, key: Key('themeSwitch')),
-            ),
-            Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('${pad(_chrono.hours)}:', style: kTimeNumbersStyle),
-                    Text('${pad(_chrono.minutes)}:', style: kTimeNumbersStyle),
-                    Text(pad(_chrono.seconds), style: kTimeNumbersStyle),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Button(
-                      onPressed: () {
-                        if (_chrono.state == ChronometerState.running) {
-                          _pause();
-                        } else {
-                          _run();
-                        }
-                      },
-                      icon: _chrono.state == ChronometerState.running ? kPauseIcon : kPlayIcon,
-                    ),
-                    if (_chrono.state != ChronometerState.off) ...[
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Button(
-                        onPressed: _restart,
-                        icon: kRestartIcon,
-                      ),
-                    ] else
-                      Container(),
-                  ],
-                )
+                Text('${pad(_chrono.hours)}:', style: kTimeNumbersStyle),
+                Text('${pad(_chrono.minutes)}:', style: kTimeNumbersStyle),
+                Text(pad(_chrono.seconds), style: kTimeNumbersStyle),
               ],
             ),
+            const DarkModeSwitch(onToggle: setTheme, key: Key('themeSwitch')),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Button(
+                  onPressed: () {
+                    if (_chrono.state == ChronometerState.running) {
+                      _pause();
+                    } else {
+                      _run();
+                    }
+                  },
+                  icon: _chrono.state == ChronometerState.running ? kPauseIcon : kPlayIcon,
+                ),
+                if (_chrono.state != ChronometerState.off) ...[
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Button(
+                    onPressed: _restart,
+                    icon: kRestartIcon,
+                  ),
+                ] else
+                  Container(),
+              ],
+            )
           ],
         ),
       ),

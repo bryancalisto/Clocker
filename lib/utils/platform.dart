@@ -3,24 +3,27 @@ import 'package:clocker/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 
+void setupWindow() {
+  doWhenWindowReady(() {
+    const initialSize = Size(200, 200);
+    appWindow
+      ..size = initialSize
+      ..minSize = initialSize
+      ..maxSize = initialSize
+      ..alignment = Alignment.bottomRight
+      ..show();
+  });
+}
+
 Future<void> runCustomPlatformApp(void Function() runApp) async {
   final os = getOS();
 
   switch (os) {
     case 'linux':
-      // TODO: Make the visual effects (flutter_acrylic) work. Or maybe think about removing the background.
-      // It looks very good with transparent backgroud! Maybe centering the toggle would make it look perfect!
       runApp();
 
-      doWhenWindowReady(() {
-        const initialSize = Size(350, 200);
-        appWindow
-          ..size = initialSize
-          ..minSize = initialSize
-          ..maxSize = initialSize
-          ..alignment = Alignment.bottomRight
-          ..show();
-      });
+      setupWindow();
+
       break;
     case 'windows':
       await Window.initialize();
@@ -28,20 +31,10 @@ Future<void> runCustomPlatformApp(void Function() runApp) async {
 
       runApp();
 
-      doWhenWindowReady(() {
-        const initialSize = Size(350, 200);
-        appWindow
-          ..size = initialSize
-          ..minSize = initialSize
-          ..maxSize = initialSize
-          ..alignment = Alignment.bottomRight
-          ..show();
-      });
+      setupWindow();
 
-      Window.setEffect(
-        effect: WindowEffect.acrylic,
-        color: const Color.fromARGB(29, 250, 250, 227),
-      );
+      Window.setEffect(effect: WindowEffect.transparent);
+
       break;
     default:
       runApp();

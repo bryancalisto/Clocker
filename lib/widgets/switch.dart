@@ -18,7 +18,7 @@ class DarkModeSwitch extends StatelessWidget {
       builder: (_, ThemeMode currentMode, __) {
         return Column(
           children: [
-            Text('Cyber', style: TextStyle(fontSize: 10, color: primaryColor, fontWeight: FontWeight.bold)),
+            Text('Cyberpunk', style: TextStyle(fontSize: 11, color: primaryColor, fontWeight: FontWeight.bold)),
             const SizedBox(
               height: 2,
             ),
@@ -34,7 +34,6 @@ class DarkModeSwitch extends StatelessWidget {
               inactiveColor: primaryColor,
               inactiveTextColor: onPrimaryColor,
               toggleColor: onPrimaryColor,
-              padding: 3.0,
               showOnOff: true,
               onToggle: onToggle,
             ),
