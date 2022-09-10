@@ -18,7 +18,7 @@ class ChronometerVw extends StatefulWidget {
   ChronometerVwState createState() => ChronometerVwState();
 }
 
-class ChronometerVwState extends State<ChronometerVw> {
+class ChronometerVwState extends State<ChronometerVw> with WidgetsBindingObserver {
   final _chrono = Chronometer();
   late FocusNode _node;
 
@@ -29,11 +29,36 @@ class ChronometerVwState extends State<ChronometerVw> {
     _chrono.ticksStream.listen((event) {
       setState(() {});
     });
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) {
+    print('Changed');
+
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print("Inactive");
+        break;
+      case AppLifecycleState.paused:
+        print("Paused");
+        break;
+      case AppLifecycleState.resumed:
+        print("Resumed");
+        break;
+      case AppLifecycleState.detached:
+        print("Suspending");
+        break;
+    }
+
+    throw Error();
   }
 
   @override
   void dispose() {
     _chrono.cancelTimer();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
